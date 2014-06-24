@@ -1,0 +1,57 @@
+body {
+	cursor: default;
+	background: #FFF;
+	color: #000;
+	overflow-y: scroll;
+}
+
+a:hover {
+	cursor: pointer;
+}
+
+a:focus {
+	outline: 0 ! important;
+}
+
+nav {
+	margin: 0;
+}
+
+
+h1 {
+	font-size: 48px;
+}
+
+
+.container {
+	min-width: 1170px;
+}
+
+
+#filters select.form-control {
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 8px;
+}
+
+#filters > div.form-group > label {
+	opacity: 0.6;
+}
+
+
+#sliderBar .slider.slider-horizontal {
+	width: 100% !important;
+}
+
+
+.opacity0 {
+	opacity: 0;
+}
+
+.opacity50 {
+	opacity: 0.5;
+}
+
+.opacity75 {
+	opacity: 0.75;
+}

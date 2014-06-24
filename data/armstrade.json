@@ -1,0 +1,71 @@
+{"years":{
+	"2010":[
+	
+		{"country_id":246,"conflict_score":1,"exports":[],"imports":[]},
+		{"country_id":262,"conflict_score":1,"exports":[],"imports":[]},
+		{"country_id":212,"conflict_score":2,"exports":[],"imports":[]},
+		{"country_id":248,"conflict_score":4,"exports":[],"imports":[]},
+		{"country_id":249,"conflict_score":4,"exports":[],"imports":[]},
+		{"country_id":266,"conflict_score":1,"exports":[],"imports":[]}
+	
+	],
+	"2011":[
+		{"country_id":643,"conflict_score":1,"exports":[
+			{"country_id": 300, "width": 1}, 
+			{"country_id": 246, "width": 2}, 
+			{"country_id": 262, "width": 3}			
+			
+			],"imports":[
+			
+			{"country_id": 212, "width": 1},
+			{"country_id": 248, "width": 3}
+			
+			]},
+		{"country_id":300,"conflict_score":3,"exports":[
+			{"country_id": 212, "width": 1},
+			{"country_id": 248, "width": 3},
+			{"country_id": 250, "width": 1}
+		],"imports":[
+			{"country_id": 643, "width": 1}		
+		]},
+		{"country_id":246,"conflict_score":4,"exports":[],"imports":[]},
+		{"country_id":262,"conflict_score":1,"exports":[],"imports":[]},
+		{"country_id":212,"conflict_score":2,"exports":[],"imports":[]},
+		{"country_id":248,"conflict_score":1,"exports":[],"imports":[]},
+		{"country_id":249,"conflict_score":2,"exports":[],"imports":[]},
+		{"country_id":266,"conflict_score":0,"exports":[],"imports":[]},
+		{"country_id":826,"conflict_score":2,"exports":[],"imports":[]},
+		{"country_id":288,"conflict_score":3,"exports":[],"imports":[]},
+		{"country_id":234,"conflict_score":3,"exports":[],"imports":[]},
+		{"country_id":250,"conflict_score":3,"exports":[],"imports":[]},
+		{"country_id":196,"conflict_score":3,"exports":[],"imports":[]}
+				
+		],
+	"2012":[
+		{"country_id":643,"conflict_score":0,"exports":[
+			{"country_id": 300, "width": 4}, 
+			{"country_id": 246, "width": 1}		
+			
+			],"imports":[
+			
+			{"country_id": 248, "width": 1}
+			
+			]},
+		
+		{"country_id":826,"conflict_score":4,"exports":[],"imports":[]},
+		{"country_id":288,"conflict_score":1,"exports":[],"imports":[]},
+		{"country_id":234,"conflict_score":1,"exports":[],"imports":[]},
+		{"country_id":250,"conflict_score":2,"exports":[],"imports":[]},
+		{"country_id":196,"conflict_score":3,"exports":[],"imports":[]}
+	]	
+},"countries":{
+	"300":{"lat":40,"long":20},
+	"246":{"lat":61,"long":40},
+	"262":{"lat":42,"long":-90},
+	"212":{"lat":23,"long":8},
+	"248":{"lat":-9,"long":119},
+	"249":{"lat":10,"long":28},
+	"250":{"lat":27,"long":27},
+	
+	"643":{"lat":56,"long":67}
+	}}
