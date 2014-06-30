@@ -1,27 +1,38 @@
-d3.select(window).on("resize", throttle);
 
-/*
-var zoom = d3.behavior.zoom()
-    .scaleExtent([1, 8])
-    .on("zoom", move);*/
+// no resize
+// d3.select(window).on("resize", throttle);
 
 var width = 1140;
-//var height = 800;
 var height = 950;
 
 var color_country_hover = '#999';
 var color_country = '#CCC';
+
+var armstrade;
+var countries_latlong;
+var year = 2011;
 
 var topo,
 	projection,
 	path,
 	svg,
 	g_map,
-	g_overlay;
+	g_overlay,
+	tooltip;
 
-var tooltip = d3.select("#map").append("div").attr("class", "tooltipMap hidden");
+function initMap() {
+	
 
-setup(width,height);
+	tooltip = d3.select("#map").append("div").attr("class", "tooltip hidden");
+
+	setup(width,height);
+	loadData();
+	
+	
+}
+
+
+
 
 function setup(width,height){
   projection = d3.geo.mercator()
@@ -45,64 +56,72 @@ function setup(width,height){
 
   
 }
-var armstrade;
-var countries_latlong;
-//var console;
-var year = 2011;
 
-d3.json("data/world-topo.json", function(error, world) {
 
-  var countries = topojson.feature(world, world.objects.countries).features;
-
-  d3.json("data/armstrade.json", function(error, data) {
-		armstrade = data;
-		countries_latlong = data.countries;
-		
-		  draw(countries);
-		  //console.log(data);
-		  if( error !== null) {
-			  alert(error);
-		  }
-		  
-		  // paint conflict scores
-		  setCountriesColor();
-		  
-		for(y in armstrade.years) {
-		  
-			for(var i=0; i < armstrade.years[y].length; i++) {
-				  var country = armstrade.years[y][i]
-				  
-				  // paint arcs
-				  drawTrades(country, country.imports, "import", y);
-				  drawTrades(country, country.exports, "export", y);				  
+function loadData() {
+	d3.json("data/world-topo.json", function(error, world) {
+	
+	  var countries = topojson.feature(world, world.objects.countries).features;
+	
+	
+	  d3.json("data/armstrade.json", function(error, data) {
+			armstrade = data;
+			countries_latlong = data.countries;
+			
+			  draw(countries);
+			  //console.log(data);
+			  if( error !== null) {
+				  alert(error);
+			  }
+			  
+			  // paint conflict scores
+			  setCountriesColor();
+			  
+			for(y in armstrade.years) {
+			  
+				for(country_id in armstrade.years[y]) {
+					  var country = armstrade.years[y][ country_id ];
+					  		
+					  //console.log(country_id);
+					  
+					  // paint arcs
+					  drawTrades(country_id, country.imports || [], "import", y);
+					  drawTrades(country_id, country.exports || [], "export", y);				  
+				}
 			}
-		}
-		  		  
+			  		  
+		});
+	
+	
 	});
-  
+}
+	
 
 
-});
-
-function drawTrades(country, trades, type, y) {
+function drawTrades(country_id, trades, type, y) {
 	
 	for(var j=0; j < trades.length; j++) {
+			if(j > 10)
+				break;
+			
 		  // arc + circle for each trade
+		  //console.log(country_id);
 		  
-		  var from = countries_latlong[ country.country_id ];
+		  var from = countries_latlong[ country_id ];
 		  var to = countries_latlong[ trades[j].country_id ];
-		  
+
 		  g_overlay.append("path")
-			  .datum({type: "LineString", coordinates: [[ from.long, from.lat], [to.long, to.lat]]})
-			  .attr("class", type + " year" + y + " country" + country.country_id)
+			  .datum({type: "LineString", coordinates: [[ from[1], from[0]], [to[1], to[0] ]]})
+			  .attr("class", type + " year" + y + " country" + country_id)
 			  .style("visibility", "hidden")
 			  .style("stroke-width", "1.0px")					  
 			  .attr("d", path);
 		  
+		  
 		  g_overlay.append("circle")
-		  .attr("transform", function(d) {return "translate(" + projection([to.long,to.lat]) + ")";})
-		  .attr("class", type + " year" + y + " country" + country.country_id)
-		  .attr("r", 5 * trades[j].width)
+		  .attr("transform", function(d) {return "translate(" + projection([to[1], to[0]]) + ")";})
+		  .attr("class", type + " year" + y + " country" + country_id)
+		  .attr("r", 5 * 1) //trades[j].value)
 		  .style("visibility", "hidden");
 		  
 	  }	
@@ -124,10 +143,12 @@ function setYear(y) {
 function setCountriesColor() {
 	d3.selectAll(".country").style("fill", color_country);
 	
-	for(var i=0; i < armstrade.years[year].length; i++) {
-		  var country = armstrade.years[year][i]
-		  
-		  d3.select("#country" + country.country_id).style("fill", getColorByConflictScore(country.conflict_score) );
+	for(country_id in armstrade.years[year]) {
+		
+		
+		var country = armstrade.years[year][ country_id ];
+
+		d3.select("#country" + country_id).style("fill", getColorByConflictScore(country.conflict) );
 	 }
 	
 }
@@ -143,9 +164,9 @@ function getColorByConflictScore(score) {
 		return 'orange';
 	} else if(score < 2) {
 		return 'lightgreen';
-	} else if(score < 3) {
+	} else if(score < 5) {
 		return 'red';
-	} else if(score >= 3) {
+	} else if(score >= 5) {
 		return 'darkred';
 	}
 }
@@ -167,6 +188,8 @@ function countryMouseOver(d, i) {
 function countryMouseLeave(d, i) { 
 	d3.select(this).style('fill', d3.select(this).attr('data-color') ); 
 }
+
+
 
 function draw(topo) {
 
