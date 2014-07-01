@@ -17,10 +17,10 @@
   border-radius: 5px;
   height:100%;
 }
-.hidden { 
+.overlay-hidden { 
   display: none; 
 }
-div.tooltipMap {
+.overlay-tooltip {
   color: #222; 
   background: #fff; 
   padding: .5em; 
@@ -33,37 +33,41 @@ div.tooltipMap {
 
 .arc {
   fill: none;
-  stroke: red;
+  stroke: #8e44ad;
   stroke-width: 3px;
   stroke-linecap: round;
  }
 
 path.export, path.import {
 	fill: none;
-	stroke-width: 3px;
+	stroke-width: 4px;
 	stroke-linecap: round;
 }
 
 path.export {
-	stroke: red;
+	stroke: #8e44ad;
 }
 circle.export {
-	fill: red;
+	fill: #8e44ad;
 }
 
 path.import {
-	stroke: blue;
+	stroke: #3178C4;
 }
 circle.import {
-	fill: blue;
+	fill: #3178C4;
 }
 
 .selected_country {
 	opacity: .6;
 }
 
+.country .selected_country {
+	stroke-width: 15px;
+}
+
 circle {
   fill: steelblue;
-  fill-opacity: .8;
+  /*fill-opacity: .8;*/
   stroke: #fff;
 } 

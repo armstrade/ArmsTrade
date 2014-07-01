@@ -4,6 +4,9 @@ ini_set("auto_detect_line_endings", true);
 
 
 $json = array(
+	'helper' => array(
+			'max_trade_value' => 0,
+			),
 	'years' => array(),
 	'countries' => array(),
 	);
@@ -42,6 +45,31 @@ if ($handle) {
 }
 
 
+$handle = fopen( 'country-location.csv', "r");
+
+if ($handle) {
+	while (($line = fgets($handle, 1024)) !== false) {
+		$cols = explode(";", $line);
+
+		if( count($cols) >= 3
+				&& isset($iso_alpha2[ $cols[ 0 ]]) ) {
+				
+			$country_id = $iso_alpha2[ $cols[ 0 ]];
+
+			$json['countries'][ $country_id ] = array(
+					'imports' => array(),
+					'exports' => array(),
+					'location' => array(
+							(double) $cols[ 1 ],
+							(double) $cols[ 2 ]
+					)
+			);
+		}
+	}
+}
+
+
+
 $handle = fopen( 'eu-armsexport.csv', "r");
 
 if ($handle) {
@@ -71,6 +99,23 @@ if ($handle) {
 			
 			$year = $cols[0];
 			
+			if( $cols[8] > $json['helper']['max_trade_value'] )
+				$json['helper']['max_trade_value'] = $cols[8];
+			
+			// sum exports/imports per year
+			
+			if(isset($json['countries'][ $from_id ]['exports'][ $year ]))
+				$json['countries'][ $from_id ]['exports'][ $year ] += $cols[8];
+			else
+				$json['countries'][ $from_id ]['exports'][ $year ] = $cols[8];
+			
+			if(isset($json['countries'][ $to_id ]['imports'][ $year ] ))
+				$json['countries'][ $to_id ]['imports'][ $year ] += $cols[8];
+			else
+				$json['countries'][ $to_id ]['imports'][ $year ] = $cols[8];
+			
+			//
+			
 			$json['years'][ $year ][ $from_id ]['exports'][] = array('country_id' => $to_id, 'value' => $cols[8]);
 			$json['years'][ $year ][ $to_id ]['imports'][] = array('country_id' => $from_id, 'value' => $cols[8]);
 		
@@ -97,24 +142,6 @@ if ($handle) {
 }
 
 
-$handle = fopen( 'country-location.csv', "r");
-
-if ($handle) {
-	while (($line = fgets($handle, 1024)) !== false) {
-		$cols = explode(";", $line);
-
-		if( count($cols) >= 3
-				&& isset($iso_alpha2[ $cols[ 0 ]]) ) {
-			
-			$country_id = $iso_alpha2[ $cols[ 0 ]];
-				
-			$json['countries'][ $country_id ] = array(
-					(double) $cols[ 1 ],
-					(double) $cols[ 2 ]
-					);
-		}
-	}
-}
 
 echo "years: " . count($json['years']);
 
