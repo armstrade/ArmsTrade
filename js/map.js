@@ -192,19 +192,22 @@ function getRadiusByTradeValue( value ) {
 
 
 function getTooltipInfo(country_id) {
-
-	var imports = data.countries[ country_id ].imports[ year ];
-	var exports = data.countries[ country_id ].exports[ year ];
+	if( typeof data.countries[ country_id ] === "undefined") {
+		exports = imports = "N/A";		
+	} else {		
+		var imports = data.countries[ country_id ].imports[ year ];
+		var exports = data.countries[ country_id ].exports[ year ];
+	}
 	
 	if(typeof imports === "undefined")
 		imports = "N/A";
 	else
-		imports = imports.formatMoney(2, ".", ",");
+		imports = formatMoney(imports, 2, ".", ",");
 	
 	if(typeof exports === "undefined")
 		exports = "N/A";
 	else
-		exports = exports.formatMoney(2, ".", ",");
+		exports = formatMoney(exports, 2, ".", ",");
 	
 	return "<br><small><b>Imports</b> " + imports + " &euro;"
 		+ "<br><b>Exports</b> " + exports + " &euro;</small>"; 
@@ -316,10 +319,7 @@ function redraw() {
   draw(topo);
 }
 
-function move2() {
-	
-	
-}
+
 function move() {
 
   var t = d3.event.translate;
