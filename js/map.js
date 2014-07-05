@@ -2,6 +2,7 @@
 // no resize
 // d3.select(window).on("resize", throttle);
 
+var max_trades_per_country = 15;
 var width = 1140;
 var height = 950;
 
@@ -10,6 +11,7 @@ var color_country = '#CCC';
 
 var armstrade;
 var year = 2002;
+var selected_country_id = -1;
 
 var topo,
 	projection,
@@ -25,7 +27,7 @@ function initMap() {
 
 	tooltip = d3.select("#map").append("div").attr("class", "overlay-tooltip overlay-hidden");
 
-	setup(width,height);
+	setupMap(width, height);
 	loadData();
 	
 	
@@ -34,27 +36,24 @@ function initMap() {
 
 
 
-function setup(width,height){
-  projection = d3.geo.mercator()
-    .translate([0, 0])
-    .scale(width / 2 / Math.PI);
-
-  path = d3.geo.path().projection(projection);
-
-  svg = d3.select("#map").append("svg")
+function setupMap(width, height){
+	projection = d3.geo.mercator()
+		.translate([0, 0])
+		.scale(width / 2 / Math.PI);
+	path = d3.geo.path().projection(projection);
+	svg = d3.select("#map").append("svg")
       .attr("width", width)
       .attr("height", height)
       .append("g")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
       //.call(zoom)
+      .on("mouseenter", function() {
+    	  //console.log("x");
+      } )
       ;
 
-  g_map = svg.append("g").attr("id", "map");
-
-  g_overlay = svg.append("g")
-  	.attr("id", "overlay");
-
-  
+	g_map = svg.append("g").attr("id", "map");
+	g_overlay = svg.append("g").attr("id", "overlay");  
 }
 
 
@@ -63,7 +62,8 @@ function loadData() {
 	
 	  var countries = topojson.feature(world, world.objects.countries).features;
 	
-	
+	  
+	  
 	  d3.json("data/armstrade.json", function(error, json) {
 			data = json;
 			
@@ -72,6 +72,8 @@ function loadData() {
 			  if( error !== null) {
 				  alert(error);
 			  }
+			  
+			  
 			  
 			  // paint conflict scores
 			  setCountriesColor();
@@ -84,10 +86,19 @@ function loadData() {
 					  //console.log(country_id);
 					  
 					  // paint arcs
-					  drawTrades(country_id, country.imports || [], "import", y);
-					  drawTrades(country_id, country.exports || [], "export", y);				  
+					  //drawTrades(country_id, country.imports || [], "import", y);
+					  //drawTrades(country_id, country.exports || [], "export", y);
+					  //console.log(  );
+					  
+					  // set data attributes
+					  d3.select("#country" + country_id).attr("data-imports-" + y, JSON.stringify(country.imports || []) );
+					  d3.select("#country" + country_id).attr("data-exports-" + y, JSON.stringify(country.exports || []) );
+					  
 				}
 			}
+			
+			d3.selectAll(".container").style("visibility", "visible");
+			d3.select("#loading").style("visibility", "hidden");
 			  		  
 		});
 	
@@ -98,20 +109,24 @@ function loadData() {
 
 
 function drawTrades(country_id, trades, type, y) {
-	
+
+	  if(typeof trades === "undefined" || trades === null)
+		  return;
+
+	  
 	for(var j=0; j < trades.length; j++) {
-			//if(j > 10)
-			//break;
+			if(j > max_trades_per_country)
+				break;
 			
 		  // arc + circle for each trade
 		  
 		  var from = data.countries[ country_id ].location;
 		  var to = data.countries[ trades[j].country_id ].location;
-		  
+
 		  g_overlay.append("path")
 			  .datum({type: "LineString", coordinates: [[ from[1], from[0]], [to[1], to[0] ]]})
 			  .attr("class", type + " year" + y + " country" + country_id)
-			  .style("visibility", "hidden")
+			  //.style("visibility", "hidden")
 			  .style("stroke-width", "1.0px")					  
 			  .attr("d", path);
 		  
@@ -120,20 +135,23 @@ function drawTrades(country_id, trades, type, y) {
 		  .attr("transform", function(d) {return "translate(" + projection([to[1], to[0]]) + ")";})
 		  .attr("class", type + " year" + y + " country" + country_id)
 		  .attr("r", getRadiusByTradeValue(trades[j].value) )
-		  .style("visibility", "hidden");
+		  //.style("visibility", "hidden")
+		  ;
 		  
 	  }	
 	
 }
 function setYear(y) {
 	
-	d3.selectAll(".year" + year).style("visibility", "hidden");
+	// remove old arcs
+	//hideArcs(selected_country_id, false);
+	d3.selectAll(".country" + selected_country_id).remove();
 	
 	year = y;
-	d3.selectAll(".year" + year).filter(".selected_country").style("visibility", "visible");
 	
-	
-	
+	// repaint arcs
+	showArcs(selected_country_id);
+
 	// repaint countries
 	setCountriesColor();
 	
@@ -150,13 +168,7 @@ function setCountriesColor() {
 	 }
 	
 }
-function toggleArcs(country_id) {
-	//console.log(country_id);
-	
-	 d3.selectAll(".year" + year + ":not(.selected_country)").style("visibility", "hidden");
-	 d3.selectAll(".year" + year ).filter(".country" + country_id).style("visibility", "visible");
-	 
-}
+
 function getColorByConflictScore(score) {
 	if(score < 1) {
 		return 'orange';
@@ -199,14 +211,18 @@ function getTooltipInfo(country_id) {
 }
 
 function countryClick(d, i) {
-	 d3.selectAll(".selected_country").classed("selected_country", false);
+	 // remove old selected
+	 d3.selectAll(".country" + selected_country_id ).remove(); //classed("selected_country", false);
+	 
+	 // set new selection
+	 selected_country_id = d.id;
 	 d3.selectAll(".country" + d.id).classed("selected_country", true);
-	 d3.selectAll("#country" + d.id).classed("selected_country", true);
+	 //d3.selectAll("#country" + d.id).classed("selected_country", true);
 	 
 	 
 	 // country_id = d.id -> data.years[ year ][ d.id ] -> TODO Jonas
 	 
-	toggleArcs(d.id);	  
+	//showArcs(d.id);	  
 }
 
 function countryMouseOver(d, i) {
@@ -214,14 +230,37 @@ function countryMouseOver(d, i) {
 	  d3.select(this).attr('data-color', d3.select(this).style('fill'));    	  
 	  d3.select(this).style('fill', color_country_hover ); 
 	  
-	  toggleArcs(d.id);
+	  showArcs(d.id);
 }
 
 function countryMouseLeave(d, i) { 
 	d3.select(this).style('fill', d3.select(this).attr('data-color') ); 
+	
+	hideArcs(d.id, true);
 }
 
+function showArcs(country_id) {
+	
+	drawTrades(country_id, JSON.parse( d3.select("#country" + country_id).attr("data-imports-" + year) ), "import", year);
+	drawTrades(country_id, JSON.parse( d3.select("#country" + country_id).attr("data-exports-" + year) ), "export", year);
+	
+	
+	
+	//console.log(imports);
+	
+	//console.log(country_id);	
+	//d3.selectAll(".year" + year + ":not(.selected_country)").style("visibility", "hidden");
+	//d3.selectAll(".year" + year ).filter(".country" + country_id).style("visibility", "visible");	 
+}
 
+function hideArcs(country_id, keep_selected_country) {
+	var filter = ".country" + country_id;
+	
+	if( keep_selected_country == true )
+		filter += ":not(.country" + selected_country_id +")";
+	
+	d3.selectAll(".year" + year ).filter( filter ).remove(); //style("visibility", "hidden");	
+}
 
 function draw(topo) {
 
