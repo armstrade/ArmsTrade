@@ -1,4 +1,4 @@
-@CHARSET "UTF-8";
+@charset "UTF-8";
 
 
 #loading {
@@ -22,37 +22,41 @@
 	cursor: pointer;
 	stroke-width: .5px;
 }
+
 .country:hover{
-  stroke: #fff;
-  stroke-width: .8px;
+	stroke: #fff;
+	stroke-width: .8px;
 }
+
 #container {
-  margin:10px 10%;
-  padding:20px;
-  border:2px solid #d0d0d0;
-  border-radius: 5px;
-  height:100%;
+	margin:10px 10%;
+	padding:20px;
+	border:2px solid #d0d0d0;
+	border-radius: 5px;
+	height:100%;
 }
+
 .overlay-hidden { 
-  display: none; 
+	display: none; 
 }
+
 .overlay-tooltip {
-  color: #222; 
-  background: #fff; 
-  padding: .5em; 
-  text-shadow: #f5f5f5 0 1px 0;
-  border-radius: 2px; 
-  box-shadow: 0px 0px 2px 0px #a6a6a6; 
-  opacity: 0.9; 
-  position: absolute;
+	color: #222; 
+	background: #fff; 
+	padding: .5em; 
+	text-shadow: #f5f5f5 0 1px 0;
+	border-radius: 2px; 
+	box-shadow: 0px 0px 2px 0px #a6a6a6; 
+	opacity: 0.9; 
+	position: absolute;
 }
 
 .arc {
-  fill: none;
-  stroke: #8e44ad;
-  stroke-width: 3px;
-  stroke-linecap: round;
- }
+	fill: none;
+	stroke: #8e44ad;
+	stroke-width: 3px;
+	stroke-linecap: round;
+}
 
 path.export, path.import {
 	fill: none;
@@ -63,6 +67,7 @@ path.export, path.import {
 path.export {
 	stroke: #8e44ad;
 }
+
 circle.export {
 	fill: #8e44ad;
 }
@@ -70,6 +75,7 @@ circle.export {
 path.import {
 	stroke: #3178C4;
 }
+
 circle.import {
 	fill: #3178C4;
 }
@@ -83,7 +89,7 @@ circle.import {
 }
 
 circle {
-  fill: steelblue;
-  /*fill-opacity: .8;*/
-  stroke: #fff;
+	fill: steelblue;
+	/*fill-opacity: .8;*/
+	stroke: #fff;
 } 

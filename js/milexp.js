@@ -30,18 +30,6 @@ $(function() {
 		updateDataTable();
 	});
 	
-	/*$('#filterType').multiselect({
-		buttonClass: 'btn btn-link', // btn-primary
-		includeSelectAllOption: true,
-		includeSelectAllDivider: true,
-		selectedClass: null,
-		numberDisplayed: 2,
-		onChange: function(element, checked) {
-			//updatedFilters();
-			return false;
-		}
-	});*/
-	
 	/*$('#filterMinValue').val(SETTINGS.defaultMinValue).on('change keyup', function() {
 		//updatedFilters();
 	});*/
@@ -68,7 +56,7 @@ $(function() {
 			
 			$({i: 0}).animate({i: max}, {
 				duration: 40000,
-				easing: 'swing',
+				easing: 'linear',
 				step: function() {
 					var currYear = SETTINGS.minYear + Math.ceil(this.i);
 					
@@ -81,25 +69,6 @@ $(function() {
 		}, 2000);
 	});
 });
-
-
-
-/*function updatedFilters() {
-	if($('#filterType').val() == null) FILTERS.types = [];
-	else FILTERS.types = $.grep($('#filterType').val(), function(value) {
-		return value != 'multiselect-all';
-	});
-	
-	FILTERS.year = $('#currYear').val();
-	FILTERS.minValue = $('#filterMinValue').val();
-	
-	
-	var map = $('#map').empty();
-	
-	map.append('Types: ' + FILTERS.types + '<br />');
-	map.append('Minimal value: ' + FILTERS.minValue + '<br />');
-	map.append('Year: ' + FILTERS.year);
-}*/
 
 
 
@@ -119,7 +88,7 @@ function updateDataTable() {
 			var tr = $('<tr>');
 			tr.append($('<td>').text(cName));
 			tr.append($('<td>').text(c2Name));
-			tr.append($('<td>', { style: 'text-align: right;' }).text(formatMoney(value.value, 0, ".", ",") + ' €'));
+			tr.append($('<td>').text(formatMoney(value.value, 0, ".", ",") + ' €'));
 			
 			table.append(tr);
 		});
@@ -132,7 +101,7 @@ function updateDataTable() {
 			var tr = $('<tr>');
 			tr.append($('<td>').text(c2Name));
 			tr.append($('<td>').text(cName));
-			tr.append($('<td>', { style: 'text-align: right;' }).text(formatMoney(value.value, 0, ".", ",") + ' €'));
+			tr.append($('<td>').text(formatMoney(value.value, 0, ".", ",") + ' €'));
 			
 			table.append(tr);
 		});

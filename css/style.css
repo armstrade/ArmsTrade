@@ -60,7 +60,72 @@ h1 {
 
 
 
+#tooSmallAlert {
+	margin-top: 15px;
+}
 
+
+
+#sliderBar {
+	height: 60px;
+	padding-top: 18px;
+}
+
+#yearBar {
+	padding-top: 10px;
+}
+
+#currYear {
+	text-align: right;
+	width: 100%;
+	max-width: 100px;
+	margin: 0px auto;
+}
+
+#zoomBar {
+	padding-top: 10px;
+	text-align: right;
+}
+
+#zoomBar select {
+	width: 200px;
+	display: inline;
+	padding: 7px 10px;
+}
+
+#bigMapContainer {
+	margin-top: 15px;
+}
+
+#mapContainer {
+	border: solid 1px black;
+	height: 650px;
+	padding: 0px;
+	overflow: hidden;
+}
+
+#map {
+	border: none;
+	height: 600px;
+}
+
+#dataTableContainer {
+	margin-top: 15px;
+	margin-bottom: 20px;
+	min-height: 300px;
+}
+
+#dataTableContainer tr th:nth-child(3), #dataTableContainer tr td:nth-child(3) {
+	text-align: right;
+}
+
+
+
+
+
+.presentationSlide .container {
+	margin-top: 80px;
+}
 
 .presentationSlide {
 	z-index: 101;
@@ -71,4 +136,8 @@ h1 {
 	bottom: 0px;
 	background: rgba(255, 255, 255, 0.90);
 	display: none;
+}
+
+.presentationSlide .container p:last-child {
+	text-align: right;
 }

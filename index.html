@@ -18,8 +18,12 @@
 		<script type="text/javascript" src="./js/helper.js"></script>
 	</head>
 	<body>
+		<div id="loading">
+			Loading ...
+		</div>
+		
 		<div id="presentation1" class="presentationSlide">
-			<div class="container" style="margin-top: 80px;">
+			<div class="container">
 				<h1>Presentation Slide 1</h1>
 				<br />
 				<p>xxxxxxxxxxxx</p>
@@ -36,12 +40,12 @@
 				<p>xxxxxxxxxxxx</p>
 				<p>xxxxxxxxxxxx</p>
 				<br />
-				<p style="text-align: right;"><button class="btn btn-sm btn-danger presClose">Close</button> &nbsp;&nbsp;&nbsp;&nbsp;<button id="pres1Continue" class="btn btn-md btn-success">Continue &raquo;</button></p>
+				<p><button class="btn btn-sm btn-danger presClose">Close</button> &nbsp;&nbsp;&nbsp;&nbsp;<button id="pres1Continue" class="btn btn-md btn-success">Continue &raquo;</button></p>
 			</div>
 		</div>
 		
 		<div id="presentation2" class="presentationSlide">
-			<div class="container" style="margin-top: 80px;">
+			<div class="container">
 				<h1>Presentation Slide 2</h1>
 				<br />
 				<p>xxxxxxxxxxxx</p>
@@ -58,69 +62,40 @@
 				<p>xxxxxxxxxxxx</p>
 				<p>xxxxxxxxxxxx</p>
 				<br />
-				<p style="text-align: right;"><button class="btn btn-sm btn-danger presClose">Close</button> &nbsp;&nbsp;&nbsp;&nbsp;<button id="presCloseAndPlay" class="btn btn-md btn-success">Play &raquo;</button></p>
+				<p><button class="btn btn-sm btn-danger presClose">Close</button> &nbsp;&nbsp;&nbsp;&nbsp;<button id="presCloseAndPlay" class="btn btn-md btn-success">Play &raquo;</button></p>
 			</div>
-		</div>
-	
-		<div id="loading">
-		loading ...
 		</div>
 		
 		<div class="container">
 			<h1>Military Exports</h1>
 		</div>
-		<div class="container hidden-lg" style="margin-top: 15px;">
+		<div id="tooSmallAlert" class="container hidden-lg">
 			<div class="alert alert-warning">Zur besseren Bedienung wird eine höhere Auflösung empfohlen (Breite größer als 1200 Pixel), da die Karte leider nur dann komplett dargestellt werden kann.</div>
 		</div>
-		<div class="container" style="margin-top: 15px;">
-			<div class="col-lg-12" id="mapContainer" style="border: solid 1px black; height: 650px; padding: 0px; overflow: hidden;">
-				<div id="map" style="border: none; height: 600px;"></div>
+		<div id="bigMapContainer" class="container">
+			<div id="mapContainer" class="col-lg-12">
+				<div id="map"></div>
 			</div>
 			<!--<div class="col-lg-3" id="filters" style="height: 300px;">
 				<h3 style="margin-top: 5px; margin-bottom: 20px; text-align: center;">Filter</h3>
 				<div class="form-group">
-					<label for="filterType">Warentyp</label><br />
-					<select class="form-control" id="filterType" multiple="multiple">
-						<option value="tanks">Panzer Panzer</option>
-						<option value="bombs">Bombige Bomben</option>
-					</select>
-				</div>
-				<div class="form-group">
 					<label for="filterMinValue">Ab einem Wert von</label>
 					<input type="number" class="form-control" id="filterMinValue" style="text-align: right;" min="0" />
 				</div>
-				
-				<div class="form-group" style="margin-top: 200px;">
-					<label for="filterType"><i class="glyphicon glyphicon-zoom-in"></i> In Region zoomen</label>
-					<select class="form-control" id="filterRegion">
-						<option style="border-bottom: 1px solid black; font-style: italic;" selected="selected">Region wählen</option>
-						<option>Nordamerika</option>
-						<option>Südamerika</option>
-						<option>Europa</option>
-						<option>Nordafrika</option>
-						<option>Südafrika</option>
-						<option>Naher Osten</option>
-						<option>Zentralasian</option>
-						<option>Südasian</option>
-						<option>Südostasian</option>
-						<option>Ostasian</option>
-						<option>Australien</option>
-					</select>
-				</div>
 			</div>-->
-			<div id="sliderBar" class="col-lg-5" style="height: 60px; padding-top: 18px;">
+			<div id="sliderBar" class="col-lg-5">
 				<input id="yearsSlider" type="text" class="span5" value="" data-slider-step="1" data-slider-orientation="horizontal" data-slider-selection="none" data-slider-tooltip="show" data-slider-handle="triangle" />
 			</div>
-			<div id="yearBar" class="col-lg-2" style="padding-top: 10px;">
-				<input id="currYear" class="form-control" type="number" value="2000" min="1980" max="2014" style="text-align: right; width: 100%; max-width: 100px; margin: 0px auto;" />
+			<div id="yearBar" class="col-lg-2">
+				<input id="currYear" class="form-control" type="number" value="2000" min="1980" max="2014" />
 			</div>
 			<!--<div id="valueBar" class="col-lg-3" style="padding-top: 10px;">
 				<label for="filterMinValue">Mindestwert (€): </label>
 				<input type="number" class="form-control" id="filterMinValue" style="text-align: right; width: 110px; display: inline;" min="0" />
 			</div>-->
-			<div id="valueBar" class="col-lg-5" style="padding-top: 10px; text-align: right;">
+			<div id="zoomBar" class="col-lg-5">
 				<label for="zoom"><i class="glyphicon glyphicon-zoom-in"></i> Zoom: </label>
-				<select class="form-control" id="zoom" style="width: 200px; display: inline; padding: 7px 10px;">
+				<select id="zoom" class="form-control">
 					<option style="border-bottom: 1px solid black; font-style: italic;" selected="selected">Choose region</option>
 					<option>Nordamerika</option>
 					<option>Südamerika</option>
@@ -136,25 +111,17 @@
 				</select>
 			</div>
 		</div>
-		<div class="container" style="margin-top: 15px; margin-bottom: 20px;">
+		<div id="dataTableContainer" class="container">
 			<h2>Data of visualization</h2>
 			<table id="dataTable" class="table">
 				<thead>
 					<tr>
 						<th class="col-lg-4">Exporter</th>
 						<th class="col-lg-4">Importer</th>
-						<th class="col-lg-4" style="text-align: right;">Value</th>
+						<th class="col-lg-4">Value</th>
 					</tr>
 				</thead>
-				<tbody>
-					
-				</tbody>
-				<!--<tfoot>
-					<tr>
-						<td style="border-top: 2px solid #DDDDDD;" colspan="3">SEITEN-NAVI?</td>
-						<td style="border-top: 2px solid #DDDDDD; text-align: right;">&sum; &nbsp;&nbsp;123.456 $</td>
-					</tr>
-				</tfoot>-->
+				<tbody></tbody>
 			</table>
 		</div>
 		
