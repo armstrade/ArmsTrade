@@ -22,7 +22,7 @@
 		</div>
 		
 		<div class="container">
-			<h1>Militärexporte</h1>
+			<h1>Military Exports</h1>
 		</div>
 		<div class="container hidden-lg" style="margin-top: 15px;">
 			<div class="alert alert-warning">Zur besseren Bedienung wird eine höhere Auflösung empfohlen (Breite größer als 1200 Pixel), da die Karte leider nur dann komplett dargestellt werden kann.</div>
@@ -76,7 +76,7 @@
 			<div id="valueBar" class="col-lg-5" style="padding-top: 10px; text-align: right;">
 				<label for="zoom"><i class="glyphicon glyphicon-zoom-in"></i> Zoom: </label>
 				<select class="form-control" id="zoom" style="width: 200px; display: inline; padding: 7px 10px;">
-					<option style="border-bottom: 1px solid black; font-style: italic;" selected="selected">Region wählen</option>
+					<option style="border-bottom: 1px solid black; font-style: italic;" selected="selected">Choose region</option>
 					<option>Nordamerika</option>
 					<option>Südamerika</option>
 					<option>Europa</option>
@@ -92,35 +92,17 @@
 			</div>
 		</div>
 		<div class="container" style="margin-top: 15px; margin-bottom: 20px;">
-			<h2>Daten hinter der Visualisierung</h2>
-			<table class="table">
+			<h2>Data of visualization</h2>
+			<table id="dataTable" class="table">
 				<thead>
 					<tr>
-						<th class="col-lg-3">Exporteur</th>
-						<th class="col-lg-3">Importeur</th>
-						<th class="col-lg-3">Art der Lieferung</th>
-						<th class="col-lg-3" style="text-align: right;">Wert</th>
+						<th class="col-lg-4">Exporter</th>
+						<th class="col-lg-4">Importer</th>
+						<th class="col-lg-4" style="text-align: right;">Value</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>Deutschland</td>
-						<td>Deutschland</td>
-						<td>Booooooom</td>
-						<td style="text-align: right;">123.456 $</td>
-					</tr>
-					<tr>
-						<td>Deutschland</td>
-						<td>Deutschland</td>
-						<td>Booooooom</td>
-						<td style="text-align: right;">123.456 $</td>
-					</tr>
-					<tr>
-						<td>Deutschland</td>
-						<td>Deutschland</td>
-						<td>Booooooom</td>
-						<td style="text-align: right;">123.456 $</td>
-					</tr>
+					
 				</tbody>
 				<!--<tfoot>
 					<tr>

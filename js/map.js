@@ -10,7 +10,7 @@ var color_country_hover = '#999';
 var color_country = '#CCC';
 
 var armstrade;
-var year = 2002;
+var year = 2001;
 var selected_country_id = -1;
 
 var topo,
@@ -230,6 +230,7 @@ function countryClick(d, i) {
 	 
 	 
 	 // country_id = d.id -> data.years[ year ][ d.id ] -> TODO Jonas
+	 updateDataTable();
 	 
 	//showArcs(d.id);	  
 }
