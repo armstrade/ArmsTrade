@@ -143,14 +143,20 @@ function drawTrades(country_id, trades, type, y) {
 }
 function setYear(y) {
 	
+	updateDataTable();
+	
 	// remove old arcs
 	//hideArcs(selected_country_id, false);
-	d3.selectAll(".country" + selected_country_id).remove();
+	//d3.selectAll(".country" + selected_country_id).remove();
 	
 	year = y;
 	
 	// repaint arcs
-	showArcs(selected_country_id);
+	if(selected_country_id > 0) {
+		d3.selectAll(".country" + selected_country_id).remove();
+		
+		showArcs(selected_country_id);
+	}
 
 	// repaint countries
 	setCountriesColor();

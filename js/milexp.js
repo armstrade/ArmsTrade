@@ -18,17 +18,19 @@ $(function() {
 		value: SETTINGS.defaultYear
 	}).on('slide', function(ev) {
 		$('#currYear').val(ev.value);
-		//updatedFilters();
 		setYear(ev.value);
+		
+		updateDataTable();
 	})
 	
 	$('#currYear').val(SETTINGS.defaultYear).on('change keyup', function() {
 		$('#yearsSlider').slider('setValue', $(this).val());
-		//updatedFilters();
 		setYear($(this).val());
+		
+		updateDataTable();
 	});
 	
-	$('#filterType').multiselect({
+	/*$('#filterType').multiselect({
 		buttonClass: 'btn btn-link', // btn-primary
 		includeSelectAllOption: true,
 		includeSelectAllDivider: true,
@@ -38,11 +40,11 @@ $(function() {
 			//updatedFilters();
 			return false;
 		}
-	});
+	});*/
 	
-	$('#filterMinValue').val(SETTINGS.defaultMinValue).on('change keyup', function() {
+	/*$('#filterMinValue').val(SETTINGS.defaultMinValue).on('change keyup', function() {
 		//updatedFilters();
-	});
+	});*/
 });
 
 
@@ -63,3 +65,9 @@ $(function() {
 	map.append('Minimal value: ' + FILTERS.minValue + '<br />');
 	map.append('Year: ' + FILTERS.year);
 }*/
+
+
+
+function updateDataTable() {
+	console.log('jo');
+}
