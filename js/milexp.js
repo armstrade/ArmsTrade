@@ -23,7 +23,7 @@ $(function() {
 		updateDataTable();
 	});
 	
-	$('#currYear').val(SETTINGS.defaultYear).on('change keyup', function() {
+	$('#currYear').attr('min', SETTINGS.minYear).attr('max', SETTINGS.maxYear).val(SETTINGS.defaultYear).on('change keyup', function() {
 		$('#yearsSlider').slider('setValue', $(this).val());
 		setYear($(this).val());
 		
