@@ -106,10 +106,7 @@ $(function() {
 function updateDataTable() {
 	if(selected_country_id === -1) return false;
 	
-	console.log('updating table (' + selected_country_id + '/' + FILTERS.year + ')');
-	
 	var yearData = data.years[FILTERS.year][selected_country_id];
-	console.log(yearData);
 	
 	var cName = $('#country' + selected_country_id).attr('title');
 	

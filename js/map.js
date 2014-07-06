@@ -143,7 +143,9 @@ function drawTrades(country_id, trades, type, y) {
 }
 function setYear(y) {
 	
-	updateDataTable();
+	FILTERS.year = y;
+	
+	//updateDataTable();
 	
 	// remove old arcs
 	//hideArcs(selected_country_id, false);
