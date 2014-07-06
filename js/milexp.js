@@ -45,6 +45,41 @@ $(function() {
 	/*$('#filterMinValue').val(SETTINGS.defaultMinValue).on('change keyup', function() {
 		//updatedFilters();
 	});*/
+	
+	
+	
+	
+	$('#pres1Continue').on('click', function() {
+		$('#presentation1').hide();
+		$('#presentation2').show();
+	});
+	
+	$('.presClose').on('click', function() {
+		$('#presentation1').hide();
+		$('#presentation2').hide();
+	});
+	
+	$('#presCloseAndPlay').on('click', function() {
+		$('.presClose').click();
+		
+		setTimeout(function() {
+			var i = 0;
+			var max = SETTINGS.maxYear - SETTINGS.minYear;
+			
+			$({i: 0}).animate({i: max}, {
+				duration: 40000,
+				easing: 'swing',
+				step: function() {
+					var currYear = SETTINGS.minYear + Math.ceil(this.i);
+					
+					$('#yearsSlider').slider('setValue', currYear);
+					
+					$('#currYear').val(currYear);
+					setYear(currYear);
+				}
+			});
+		}, 2000);
+	});
 });
 
 

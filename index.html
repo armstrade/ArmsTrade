@@ -17,6 +17,50 @@
 		<script type="text/javascript" src="./js/helper.js"></script>
 	</head>
 	<body>
+		<div id="presentation1" class="presentationSlide">
+			<div class="container" style="margin-top: 80px;">
+				<h1>Presentation Slide 1</h1>
+				<br />
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<br />
+				<p style="text-align: right;"><button class="btn btn-sm btn-danger presClose">Close</button> &nbsp;&nbsp;&nbsp;&nbsp;<button id="pres1Continue" class="btn btn-md btn-success">Continue &raquo;</button></p>
+			</div>
+		</div>
+		
+		<div id="presentation2" class="presentationSlide">
+			<div class="container" style="margin-top: 80px;">
+				<h1>Presentation Slide 2</h1>
+				<br />
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<p>xxxxxxxxxxxx</p>
+				<br />
+				<p style="text-align: right;"><button class="btn btn-sm btn-danger presClose">Close</button> &nbsp;&nbsp;&nbsp;&nbsp;<button id="presCloseAndPlay" class="btn btn-md btn-success">Play &raquo;</button></p>
+			</div>
+		</div>
+	
 		<div id="loading">
 		loading ...
 		</div>
@@ -119,6 +163,10 @@
 		<script type="text/javascript">
 		/* <![CDATA[ */
 		    (function() {
+		    	if(window.location.hash == '#presentation') {
+					$('#presentation1').show();
+		    	}
+		    	
 				initMap();
 			})();
 		/* ]]> */

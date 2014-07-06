@@ -55,3 +55,20 @@ h1 {
 .opacity75 {
 	opacity: 0.75;
 }
+
+
+
+
+
+
+
+.presentationSlide {
+	z-index: 101;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	background: rgba(255, 255, 255, 0.95);
+	display: none;
+}
