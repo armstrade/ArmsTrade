@@ -129,9 +129,6 @@ function getCategoryName( id ) {
 function updateDataTable() {
 	if(selected_country_id === -1) return false;
 	
-	console.log( selected_country_id );
-	console.log( year );
-	
 	var yearData = data.years[FILTERS.year][selected_country_id];
 	
 	var cName = $('#country' + selected_country_id).attr('title');

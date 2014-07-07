@@ -153,7 +153,7 @@ function drawTrades(country_id, trades, type, y) {
         tooltip
           .classed("overlay-hidden", false)
           .attr("style", "left:"+(mouse[0]+offsetL)+"px;top:"+(mouse[1]+offsetT)+"px")
-          .html( "<small>" + formatMoney( d3.select(this).attr("data-value") , 2, ".", ",") + " &euro;</small>" ) //trades[to_id]  )
+          .html( "<small>" + formatMoney( d3.select(this).attr("data-value") , 0, ".", ",") + " &euro;</small>" ) //trades[to_id]  )
       })
       .on("mouseout",  function(d,i) {
         tooltip.classed("overlay-hidden", true)
@@ -236,12 +236,12 @@ function getTooltipInfo(country_id) {
 	if(typeof imports === "undefined")
 		imports = "N/A";
 	else
-		imports = formatMoney(imports, 2, ".", ",");
+		imports = formatMoney(imports, 0, ".", ",");
 	
 	if(typeof exports === "undefined")
 		exports = "N/A";
 	else
-		exports = formatMoney(exports, 2, ".", ",");
+		exports = formatMoney(exports, 0, ".", ",");
 	
 	return "<br><small><b>Imports</b> " + imports + " &euro;"
 		+ "<br><b>Exports</b> " + exports + " &euro;</small>"; 
