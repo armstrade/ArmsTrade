@@ -6,6 +6,11 @@ var max_trades_per_country = 150;
 var width = 1140;
 var height = 950;
 
+
+//ofsets plus width/height of transform, plsu 20 px of padding, plus 20 extra for tooltip offset off mouse
+var offsetL = document.getElementById('map').offsetLeft+(width/2)+40;
+var offsetT = document.getElementById('map').offsetTop+(height/2)+20;
+
 var color_country_hover = '#999';
 var color_country = '#CCC';
 
@@ -125,7 +130,7 @@ function drawTrades(country_id, trades, type, y) {
 	//			break;
 			
 		  // arc + circle for each trade
-		  
+		  console.log( trades[to_id] );
 		  var from = data.countries[ country_id ].location;
 		  var to = data.countries[ to_id ].location;
 
@@ -141,12 +146,30 @@ function drawTrades(country_id, trades, type, y) {
 		  .attr("transform", function(d) {return "translate(" + projection([to[1], to[0]]) + ")";})
 		  .attr("class", type + " year" + y + " country" + country_id)
 		  .attr("r", getRadiusByTradeValue(trades[to_id]) )
+		  .attr("data-value", trades[to_id])
+		  
+		  // tooltip trade
+		      .on("mousemove", function(d,i) {
+    	
+      var mouse = d3.mouse(svg.node()).map( function(d) { return parseInt(d); } );
+      
+        tooltip
+          .classed("overlay-hidden", false)
+          .attr("style", "left:"+(mouse[0]+offsetL)+"px;top:"+(mouse[1]+offsetT)+"px")
+          .html( "<small>" + formatMoney( d3.select(this).attr("data-value") , 2, ".", ",") + " &euro;</small>" ) //trades[to_id]  )
+      })
+      .on("mouseout",  function(d,i) {
+        tooltip.classed("overlay-hidden", true)
+      })
 		  //.style("visibility", "hidden")
 		  ;
 		  
 	  }	
 	
 }
+
+
+
 function setYear(y) {
 	
 	FILTERS.year = y;
@@ -261,14 +284,7 @@ function showArcs(country_id) {
 	
 	drawTrades(country_id, JSON.parse( d3.select("#country" + country_id).attr("data-imports-" + year) ), "import", year);
 	drawTrades(country_id, JSON.parse( d3.select("#country" + country_id).attr("data-exports-" + year) ), "export", year);
-	
-	
-	
-	//console.log(imports);
-	
-	//console.log(country_id);	
-	//d3.selectAll(".year" + year + ":not(.selected_country)").style("visibility", "hidden");
-	//d3.selectAll(".year" + year ).filter(".country" + country_id).style("visibility", "visible");	 
+	 
 }
 
 function hideArcs(country_id, keep_selected_country) {
@@ -294,10 +310,6 @@ function draw(topo) {
       .on("click", countryClick)
       .on("mouseover", countryMouseOver )
   	  .on("mouseleave", countryMouseLeave );
-
-  //ofsets plus width/height of transform, plsu 20 px of padding, plus 20 extra for tooltip offset off mouse
-  var offsetL = document.getElementById('map').offsetLeft+(width/2)+40;
-  var offsetT =document.getElementById('map').offsetTop+(height/2)+20;
 
   //tooltips
   country

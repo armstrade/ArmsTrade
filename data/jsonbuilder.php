@@ -117,15 +117,15 @@ if ($handle) {
 			// exports list
 			
 			if( isset($json['years'][ $year ][ $from_id ]['exports'][$to_id]) )
-				$json['years'][ $year ][ $from_id ]['exports'][$to_id] += $cols[8];
+				$json['years'][ $year ][ $from_id ]['exports'][$to_id] += (int) $cols[8];
 			else	
-				$json['years'][ $year ][ $from_id ]['exports'][$to_id] = $cols[8];
+				$json['years'][ $year ][ $from_id ]['exports'][$to_id] = (int) $cols[8];
 			
 			// imports
 			if( isset($json['years'][ $year ][ $to_id ]['exports'][ $from_id ]) )
-				$json['years'][ $year ][ $to_id ]['exports'][ $from_id ] += $cols[8];
+				$json['years'][ $year ][ $to_id ]['exports'][ $from_id ] += (int) $cols[8];
 			else
-				$json['years'][ $year ][ $to_id ]['exports'][ $from_id ] = $cols[8];
+				$json['years'][ $year ][ $to_id ]['exports'][ $from_id ] = (int) $cols[8];
 			
 			// all details
 			if($cols[6] == "Miscellaneous")

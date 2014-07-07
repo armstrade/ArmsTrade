@@ -121,7 +121,7 @@ function getCategoryName( id ) {
 	};
 	
 	if( typeof categories[ id ] === "undefined" )
-		return "Miscellaneous (" + id + ")";
+		return "Miscellaneous";
 	else
 		return categories[ id ];
 	
@@ -129,13 +129,16 @@ function getCategoryName( id ) {
 function updateDataTable() {
 	if(selected_country_id === -1) return false;
 	
+	console.log( selected_country_id );
+	console.log( year );
+	
 	var yearData = data.years[FILTERS.year][selected_country_id];
 	
 	var cName = $('#country' + selected_country_id).attr('title');
 	
 	var table = $('#dataTable tbody').empty();
 	
-	if(yearData.exports != null) {
+	if(yearData.exportDetails != null) {
 		$.each(yearData.exportDetails, function(key, value) {
 			var c2Name = $('#country' + value.country_id).attr('title');
 			
@@ -150,7 +153,7 @@ function updateDataTable() {
 		});
 	}
 	
-	if(yearData.imports != null) {
+	if(yearData.importDetails != null) {
 		$.each(yearData.importDetails, function(key, value) {
 			var c2Name = $('#country' + value.country_id).attr('title');
 			
