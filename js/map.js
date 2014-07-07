@@ -125,12 +125,9 @@ function drawTrades(country_id, trades, type, y) {
 		  return;
 
 	for(to_id in trades)  {
-	//for(var j=0; j < trades.length; j++) {
-	//		if(j > max_trades_per_country)
-	//			break;
-			
+
 		  // arc + circle for each trade
-		  console.log( trades[to_id] );
+		
 		  var from = data.countries[ country_id ].location;
 		  var to = data.countries[ to_id ].location;
 
