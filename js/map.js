@@ -119,15 +119,15 @@ function drawTrades(country_id, trades, type, y) {
 	  if(typeof trades === "undefined" || trades === null)
 		  return;
 
-	  
-	for(var j=0; j < trades.length; j++) {
-			if(j > max_trades_per_country)
-				break;
+	for(to_id in trades)  {
+	//for(var j=0; j < trades.length; j++) {
+	//		if(j > max_trades_per_country)
+	//			break;
 			
 		  // arc + circle for each trade
 		  
 		  var from = data.countries[ country_id ].location;
-		  var to = data.countries[ trades[j].country_id ].location;
+		  var to = data.countries[ to_id ].location;
 
 		  g_overlay.append("path")
 			  .datum({type: "LineString", coordinates: [[ from[1], from[0]], [to[1], to[0] ]]})
@@ -140,7 +140,7 @@ function drawTrades(country_id, trades, type, y) {
 		  g_overlay.append("circle")
 		  .attr("transform", function(d) {return "translate(" + projection([to[1], to[0]]) + ")";})
 		  .attr("class", type + " year" + y + " country" + country_id)
-		  .attr("r", getRadiusByTradeValue(trades[j].value) )
+		  .attr("r", getRadiusByTradeValue(trades[to_id]) )
 		  //.style("visibility", "hidden")
 		  ;
 		  

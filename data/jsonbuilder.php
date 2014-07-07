@@ -114,12 +114,26 @@ if ($handle) {
 			else
 				$json['countries'][ $to_id ]['imports'][ $year ] = $cols[8];
 			
-			//
+			// exports list
 			
+			if( isset($json['years'][ $year ][ $from_id ]['exports'][$to_id]) )
+				$json['years'][ $year ][ $from_id ]['exports'][$to_id] += $cols[8];
+			else	
+				$json['years'][ $year ][ $from_id ]['exports'][$to_id] = $cols[8];
 			
-			$json['years'][ $year ][ $from_id ]['exports'][] = array('country_id' => $to_id, 'value' => $cols[8]);
+			// imports
+			if( isset($json['years'][ $year ][ $to_id ]['exports'][ $from_id ]) )
+				$json['years'][ $year ][ $to_id ]['exports'][ $from_id ] += $cols[8];
+			else
+				$json['years'][ $year ][ $to_id ]['exports'][ $from_id ] = $cols[8];
 			
-			$json['years'][ $year ][ $to_id ]['imports'][] = array('country_id' => $from_id, 'value' => $cols[8]);
+			// all details
+			if($cols[6] == "Miscellaneous")
+				$cols[6] = "";
+
+			$json['years'][ $year ][ $from_id ]['exportDetails'][] = array('country_id' => $to_id, 'type' => $cols[6], 'value' => $cols[8]);
+			
+			$json['years'][ $year ][ $to_id ]['importDetails'][] = array('country_id' => $from_id, 'type' => $cols[6], 'value' => $cols[8]);
 		
 		}
 	}

@@ -92,7 +92,40 @@ function playMap() {
 	});
 }
 
+function getCategoryName( id ) {
 
+	categories = {
+		"ML 1":"Smooth-bore weapons with a calibre of less than 20mm",
+		"ML 2":"Smooth-bore weapons with a calibre of 20 mm or more",
+		"ML 3":"Ammunition and fuse setting devices",
+		"ML 4":"Explosive devices and charges",
+		"ML 5":"Fire control and warning equipment",
+		"ML 6":"Ground vehicles and components",
+		"ML 7":"Chemical, biological, toxic or radioactiv agents, riot control agents",
+		"ML 8":"Energetic materials",
+		"ML 9":"Vessels of war (surface or underwater)",
+		"ML 10":"Aircrafts, Unmanned Aerial Vehicles",
+		"ML 11":"Electronic equipment",
+		"ML 12":"High velocity kinetic energy weapon systems",
+		"ML 13":"Armoured or protective equipment",
+		"ML 14":"Specialised equipment for military training and/or simulations",
+		"ML 15":"Imaging or countermeasure equipment",
+		"ML 16":"Unfinished products (forgings, castings, ...)",
+		"ML 17":"Miscellaneous equipment, materials and libraries",
+		"ML 18":"Production equipment",
+		"ML 19":"Directed Energy Weapon systems",
+		"ML 20":"Cryogenic and superconductive equipment",
+		"ML 21":"Software",
+		"ML 22":"Technology",
+			
+	};
+	
+	if( typeof categories[ id ] === "undefined" )
+		return "Miscellaneous (" + id + ")";
+	else
+		return categories[ id ];
+	
+}
 function updateDataTable() {
 	if(selected_country_id === -1) return false;
 	
@@ -103,12 +136,14 @@ function updateDataTable() {
 	var table = $('#dataTable tbody').empty();
 	
 	if(yearData.exports != null) {
-		$.each(yearData.exports, function(key, value) {
+		$.each(yearData.exportDetails, function(key, value) {
 			var c2Name = $('#country' + value.country_id).attr('title');
 			
 			var tr = $('<tr>');
 			tr.append($('<td>').text(cName));
 			tr.append($('<td>').text(c2Name));
+			tr.append($('<td>').text(getCategoryName(value.type)) );
+			
 			tr.append($('<td>').text(formatMoney(value.value, 0, ".", ",") + ' €'));
 			
 			table.append(tr);
@@ -116,12 +151,13 @@ function updateDataTable() {
 	}
 	
 	if(yearData.imports != null) {
-		$.each(yearData.imports, function(key, value) {
+		$.each(yearData.importDetails, function(key, value) {
 			var c2Name = $('#country' + value.country_id).attr('title');
 			
 			var tr = $('<tr>');
 			tr.append($('<td>').text(c2Name));
 			tr.append($('<td>').text(cName));
+			tr.append($('<td>').text(getCategoryName( value.type ) ));
 			tr.append($('<td>').text(formatMoney(value.value, 0, ".", ",") + ' €'));
 			
 			table.append(tr);
