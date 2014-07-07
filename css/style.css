@@ -99,14 +99,14 @@ h1 {
 
 #mapContainer {
 	border: solid 1px black;
-	height: 650px;
+	height: 550px;
 	padding: 0px;
 	overflow: hidden;
 }
 
 #map {
 	border: none;
-	height: 600px;
+	margin-top: -100px;
 }
 
 #dataTableContainer {
@@ -121,10 +121,15 @@ h1 {
 
 
 
-
+.presentationSlide li {
+	margin-bottom: 15px;
+	font-size: 26px;
+}
 
 .presentationSlide .container {
 	margin-top: 80px;
+	background: #fff;
+	
 }
 
 .presentationSlide {
@@ -134,7 +139,7 @@ h1 {
 	left: 0px;
 	right: 0px;
 	bottom: 0px;
-	background: rgba(255, 255, 255, 0.90);
+	background: rgba(0, 0, 0, 0.60);
 	display: none;
 }
 

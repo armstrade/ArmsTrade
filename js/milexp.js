@@ -11,6 +11,13 @@ var FILTERS = {
 	year: SETTINGS.defaultYear
 };
 
+
+var play = function() {};
+
+function toggleHelp() {
+	$('#help').toggle();
+}
+
 $(function() {
 	$('#yearsSlider').slider({
 		min: SETTINGS.minYear,
@@ -41,35 +48,49 @@ $(function() {
 		$('#presentation1').hide();
 		$('#presentation2').show();
 	});
+
+	$('#pres2Continue').on('click', function() {
+		$('#presentation2').hide();
+		$('#presentation3').show();
+	});	
+	
+	
+	$('#pres3Continue').on('click', function() {
+		$('#presentation3').hide();
+		$('#presentation4').show();
+	});	
+	
 	
 	$('.presClose').on('click', function() {
-		$('#presentation1').hide();
-		$('#presentation2').hide();
+		$('.presentationSlide').hide();
+		
 	});
 	
-	$('#presCloseAndPlay').on('click', function() {
-		$('.presClose').click();
+	$('#presCloseAndPlay, #sliderPlay').on('click', function() {
+		$('.presentationSlide').hide();
 		
-		setTimeout(function() {
-			var i = 0;
-			var max = SETTINGS.maxYear - SETTINGS.minYear;
-			
-			$({i: 0}).animate({i: max}, {
-				duration: 40000,
-				easing: 'linear',
-				step: function() {
-					var currYear = SETTINGS.minYear + Math.ceil(this.i);
-					
-					$('#yearsSlider').slider('setValue', currYear);
-					
-					$('#currYear').val(currYear);
-					setYear(currYear);
-				}
-			});
-		}, 2000);
+		play = setTimeout(playMap, 2000);
 	});
 });
 
+
+function playMap() {
+	var i = 0;
+	var max = SETTINGS.maxYear - SETTINGS.minYear;
+	
+	$({i: 0}).animate({i: max}, {
+		duration: 40000,
+		easing: 'linear',
+		step: function() {
+			var currYear = SETTINGS.minYear + Math.ceil(this.i);
+			
+			$('#yearsSlider').slider('setValue', currYear);
+			
+			$('#currYear').val(currYear);
+			setYear(currYear);
+		}
+	});
+}
 
 
 function updateDataTable() {

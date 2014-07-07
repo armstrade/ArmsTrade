@@ -24,21 +24,15 @@
 		
 		<div id="presentation1" class="presentationSlide">
 			<div class="container">
-				<h1>Presentation Slide 1</h1>
+				<div class="text-center">
+				<br>
+				<br>
+				<h1>Visualisierung des EU-Waffenhandels in Kriegsgebiete</h1>
 				<br />
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
+				<p class="text-center">Data Science Seminar SS2014</p>
+				<br>
+				</div>
+				
 				<br />
 				<p><button class="btn btn-sm btn-danger presClose">Close</button> &nbsp;&nbsp;&nbsp;&nbsp;<button id="pres1Continue" class="btn btn-md btn-success">Continue &raquo;</button></p>
 			</div>
@@ -46,29 +40,92 @@
 		
 		<div id="presentation2" class="presentationSlide">
 			<div class="container">
-				<h1>Presentation Slide 2</h1>
+				<h1>Motivation &amp; Hintergr&uuml;nde</h1>
 				<br />
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
-				<p>xxxxxxxxxxxx</p>
+				
+				<ul>
+					<li>Welchen Zusammenhang gibt es zwischen Waffenhandel und Kriegen?</li>
+					<li>Von welchen L&auml;ndern werden die meisten Waffen gehandelt?</li>
+					<li>Wer profitiert von Kriegen?</li>
+					<li>Gibt es Ver&auml;nderungen im Laufe der Zeit?</li>
+					
+				</ul>
+				
 				<br />
-				<p><button class="btn btn-sm btn-danger presClose">Close</button> &nbsp;&nbsp;&nbsp;&nbsp;<button id="presCloseAndPlay" class="btn btn-md btn-success">Play &raquo;</button></p>
+				<p><button class="btn btn-sm btn-danger presClose">Close</button> &nbsp;&nbsp;&nbsp;&nbsp;<button id="pres2Continue" class="btn btn-md btn-success">Continue &raquo;</button></p>
+			</div>
+		</div>
+	
+				
+		<div id="presentation3" class="presentationSlide">
+			<div class="container">
+				<h1>Quellen &amp; Datenbeschaffung</h1>
+				<br />
+				
+				<ul>
+					<li>Waffenhandel ist ein heikels Thema</li>
+					<li>Wenig oder gar keine Transparenz</li>
+					<li>Keine vollst&auml;ndigen Datens&auml;tze</li>
+					<li>EU-Waffenbericht (Campaigns Against Arms Trade)</li>
+					<li>Konfliktbarometer (Heidelberg Institute for International Conflict Research)</li>
+			
+				</ul>
+				
+				<img src="images/caatlogo.png" alt="Caat">
+				<img src="images/hiiklogo.jpg" alt="hiik">
+				
+				<br />
+				
+					<p><button class="btn btn-sm btn-danger presClose">Close</button> &nbsp;&nbsp;&nbsp;&nbsp;<button id="pres3Continue" class="btn btn-md btn-success">Continue &raquo;</button></p>
+			
 			</div>
 		</div>
 		
-		<div class="container">
-			<h1>Military Exports</h1>
+		<div id="presentation4" class="presentationSlide">
+			<div class="container">
+				<h1>Technologie</h1>
+				<br />
+				
+				<img src="images/d3js.png" alt="d3" width="700" style="border: 0;">
+				
+				<br />
+			
+				<p><button class="btn btn-sm btn-danger presClose">Close</button> &nbsp;&nbsp;&nbsp;&nbsp;<button id="presCloseAndPlay" class="btn btn-md btn-success">Play &raquo;</button></p>
+			
+			</div>
 		</div>
+				
+		
+		<div class="container">
+			<div class="col-lg-6">
+				<h1>Military Exports</h1>
+			</div>
+			<div id="legende" class="col-lg-6">
+				<b>Legend</b> <span class="legende import">&nbsp;</span> Imports <span class="legende export">&nbsp;</span> Exports <span class="legende conflict">&nbsp;</span> Conflictlevel
+				<a style="margin-left: 20px;" href="#" onclick="toggleHelp();"><span class="glyphicon glyphicon-question-sign"></span> Help (DE)</a>
+			</div>
+		</div>
+		
+		<div id="help" class="container" style="display: none">
+			
+			<p class="well">
+			
+			Die Karte zeigt Rüstungsexporte der EU für die Jahre 2001 bis 2012 (Daten vom CAAT). 
+			
+			Besonders zu beachten sind Exporte in Kriegsgebiete (blassrot – begrenzter Krieg, rot – Krieg; Daten des HIIK). 
+			
+			Bewege den Cursor über die Karte um die Waffenimporte und –Exporte des Landes zu sehen. 
+			
+			Die Kreisgröße entspricht dem Wert der Lieferungen. Durch Klicken können Länder gehalten werden. 
+			
+			Das Jahr kann unter der Karte eingestellt werden. 
+			
+			Leider können die Exportdaten keinen Anspruch auf Vollständigkeit erheben und sind als Minima zu verstehen.
+			
+			</p>
+		
+		</div> 
+		
 		<div id="tooSmallAlert" class="container hidden-lg">
 			<div class="alert alert-warning">Zur besseren Bedienung wird eine höhere Auflösung empfohlen (Breite größer als 1200 Pixel), da die Karte leider nur dann komplett dargestellt werden kann.</div>
 		</div>
@@ -85,29 +142,29 @@
 			</div>-->
 			<div id="sliderBar" class="col-lg-5">
 				<input id="yearsSlider" type="text" class="span5" value="" data-slider-step="1" data-slider-orientation="horizontal" data-slider-selection="none" data-slider-tooltip="show" data-slider-handle="triangle" />
+				
+				
+				
 			</div>
-			<div id="yearBar" class="col-lg-2">
-				<input id="currYear" class="form-control" type="number" value="2000" min="1980" max="2014" />
+			<div id="yearBar" class="col-lg-3">
+				<button id="sliderPlay"><span class="glyphicon glyphicon-play"></span></button>
+				<input id="currYear" class="form-control" type="number" value="2000" min="1980" max="2014" style="display: inline;" />
 			</div>
 			<!--<div id="valueBar" class="col-lg-3" style="padding-top: 10px;">
 				<label for="filterMinValue">Mindestwert (€): </label>
 				<input type="number" class="form-control" id="filterMinValue" style="text-align: right; width: 110px; display: inline;" min="0" />
 			</div>-->
-			<div id="zoomBar" class="col-lg-5">
+			<div id="zoomBar" class="col-lg-4">
 				<label for="zoom"><i class="glyphicon glyphicon-zoom-in"></i> Zoom: </label>
-				<select id="zoom" class="form-control">
-					<option style="border-bottom: 1px solid black; font-style: italic;" selected="selected">Choose region</option>
-					<option>Nordamerika</option>
-					<option>Südamerika</option>
-					<option>Europa</option>
-					<option>Nordafrika</option>
-					<option>Südafrika</option>
-					<option>Naher Osten</option>
-					<option>Zentralasian</option>
-					<option>Südasian</option>
-					<option>Südostasian</option>
-					<option>Ostasian</option>
-					<option>Australien</option>
+				<select id="zoom" class="form-control" onchange="zoomMap(this.value);">
+					<option value="" style="border-bottom: 1px solid black; font-style: italic;" selected="selected">Choose region</option>
+					<option value="europe">Europe</option>
+					<option value="africa">Africa</option>
+					<option value="middleeast">Middle East</option>
+					<option value="asia">Asia</option>
+					<option value="northamerica">North America</option>
+					<option value="southamerica">South America</option>				
+					<option value="">World</option>
 				</select>
 			</div>
 		</div>

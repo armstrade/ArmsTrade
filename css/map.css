@@ -1,5 +1,26 @@
 @charset "UTF-8";
 
+#legende {
+	text-align: right;
+	padding-top: 50px;
+}
+span.legende {
+	margin-left: 20px;
+	margin-right: 5px;
+	height: 16px;
+}
+
+span.import {
+	border-left: 18px solid #3178C4;
+}
+span.export {
+	border-left: 18px solid #1D9C03;
+}
+
+span.conflict {
+	border-left: 18px solid #EB7878;
+	border-right: 18px solid #DE3A3A;
+}
 
 #loading {
 	width: 100%;
@@ -53,7 +74,7 @@
 
 .arc {
 	fill: none;
-	stroke: #8e44ad;
+	stroke: #E00000;
 	stroke-width: 3px;
 	stroke-linecap: round;
 }
@@ -65,11 +86,12 @@ path.export, path.import {
 }
 
 path.export {
-	stroke: #8e44ad;
+	stroke: #1D9C03;
 }
 
 circle.export {
-	fill: #8e44ad;
+	fill: #1D9C03;
+	opacity: .8;
 }
 
 path.import {
@@ -78,6 +100,7 @@ path.import {
 
 circle.import {
 	fill: #3178C4;
+	opacity: .8;
 }
 
 .selected_country {

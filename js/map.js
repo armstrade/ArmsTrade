@@ -2,7 +2,7 @@
 // no resize
 // d3.select(window).on("resize", throttle);
 
-var max_trades_per_country = 15;
+var max_trades_per_country = 150;
 var width = 1140;
 var height = 950;
 
@@ -11,7 +11,7 @@ var color_country = '#CCC';
 
 var armstrade;
 var year = 2001;
-var selected_country_id = -1;
+var selected_country_id = 250; //-1;
 
 var topo,
 	projection,
@@ -82,8 +82,12 @@ function loadData() {
 			  
 				for(country_id in data.years[y]) {
 					  var country = data.years[y][ country_id ];
-					  		
-					  //console.log(country_id);
+					  /*	
+					  console.log(country_id);
+					  console.log(data.countries[ country_id ].imports);
+					  console.log(y);
+					  console.log(data.countries[ country_id ].imports[ y ]);
+					  */
 					  
 					  // paint arcs
 					  //drawTrades(country_id, country.imports || [], "import", y);
@@ -99,7 +103,9 @@ function loadData() {
 			
 			d3.selectAll(".container").style("visibility", "visible");
 			d3.select("#loading").style("visibility", "hidden");
-			  		  
+			 
+			// default country
+			showArcs(selected_country_id);
 		});
 	
 	
@@ -191,8 +197,8 @@ function getColorByConflictScore(score) {
 
 function getRadiusByTradeValue( value ) {
 	var r = value / data.helper.max_trade_value * 165;
-	if(r < 3)
-		return 3;
+	if(r < 2)
+		return 2;
 	else
 		return r;
 }
@@ -309,11 +315,26 @@ function draw(topo) {
    
 }
 
-function zoomEurope() {
-	var xy = [0,500]; // projection([9, 51]);
-	var scale = 4;
+function zoomMap( level ) {
+	var zoomLevels = {
+		world: { xy: [0, 0], scale: 1},
+		europe: { xy: [0, 500], scale: 3 },
+		africa: { xy: [-200, -140], scale: 2.5 },
+		northamerica: { xy: [500, 100], scale: 2.5},
+		southamerica: { xy: [500, -250], scale: 2.5},
+		middleeast: { xy: [-400, 200], scale: 3},
+		asia: { xy: [-700, 10], scale: 2},
+		
+	}
 	
-	//zoom.translate(xy);
+	// default
+	var xy = [0,0]; // projection([9, 51]);
+	var scale = 1;
+	
+	if( typeof zoomLevels[level] !== "undefined") {
+		xy = zoomLevels[level].xy;
+		scale = zoomLevels[level].scale;
+	}
 	
 	g_map.attr("transform", "translate("+ xy + ")scale(" + scale + ")");
 	g_overlay.attr("transform", "translate("+ xy + ")scale(" + scale + ")");

@@ -116,7 +116,9 @@ if ($handle) {
 			
 			//
 			
+			
 			$json['years'][ $year ][ $from_id ]['exports'][] = array('country_id' => $to_id, 'value' => $cols[8]);
+			
 			$json['years'][ $year ][ $to_id ]['imports'][] = array('country_id' => $from_id, 'value' => $cols[8]);
 		
 		}
